@@ -1,59 +1,17 @@
 import './App.css';
+import Layout from './Layout';
+import { Route, Routes } from 'react-router-dom';
+import IndexPage from './pages/IndexPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
-    <main>
-      <header>
-        <a href='' className='logo'>MyBlog</a>
-        <nav>
-          <a href=''>Login</a>
-          <a href=''>Register</a>
-        </nav>
-      </header>
-
-      <div className='post'>
-        <div className="image">
-          <img src='https://images.newscientist.com/wp-content/uploads/2023/07/18224338/SEI_164576893.jpg?width=900' alt='' />
-        </div>
-        <div className='texts'>
-          <h2>Two-faced star seems to have one hydrogen side and one helium side</h2>
-          <p className="info">
-            <a href="" className="author">Chris N</a>
-            <time>2023-07-19 08:35</time>
-          </p>
-          <p className='summary'>Astronomers have found a two-faced star where each side has a different composition. This white dwarf star, nicknamed Janus after the Roman god of doorways and transitions, is the first of its kind ever spotted.</p>
-        </div>
-      </div>
-
-      <div className='post'>
-        <div className="image">
-          <img src='https://images.newscientist.com/wp-content/uploads/2023/07/18224338/SEI_164576893.jpg?width=900' alt='' />
-        </div>
-        <div className='texts'>
-          <h2>Two-faced star seems to have one hydrogen side and one helium side</h2>
-          <p className="info">
-            <a href="" className="author">Chris N</a>
-            <time>2023-07-19 08:35</time>
-          </p>
-          <p className='summary'>Astronomers have found a two-faced star where each side has a different composition. This white dwarf star, nicknamed Janus after the Roman god of doorways and transitions, is the first of its kind ever spotted.</p>
-        </div>
-      </div>
-      
-      <div className='post'>
-        <div className="image">
-          <img src='https://images.newscientist.com/wp-content/uploads/2023/07/18224338/SEI_164576893.jpg?width=900' alt='' />
-        </div>
-        <div className='texts'>
-          <h2>Two-faced star seems to have one hydrogen side and one helium side</h2>
-          <p className="info">
-            <a href="" className="author">Chris N</a>
-            <time>2023-07-19 08:35</time>
-          </p>
-          <p className='summary'>Astronomers have found a two-faced star where each side has a different composition. This white dwarf star, nicknamed Janus after the Roman god of doorways and transitions, is the first of its kind ever spotted.</p>
-        </div>
-      </div>
-
-    </main>
+    <Routes>
+      <Route path='/' element={<Layout />} >
+        <Route index element={<IndexPage />} />
+        <Route path='/login' element={<LoginPage />} />
+      </Route>
+    </Routes>
   );
 }
 
