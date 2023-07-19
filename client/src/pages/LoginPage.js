@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom'
+import { UserContext } from '../UserContext'
 
 function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [redirect, setRedirect] = useState(false)
+  const {userInfo, setUserInfo} = useContext(UserContext);
 
   async function login(e) {
     e.preventDefault()
@@ -14,9 +16,11 @@ function LoginPage() {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include', // send req with credentials (cookies)
     })
-    if(response.status === 200) {
-      // alert('login successful')
-      setRedirect(true)
+    if(response.ok) {
+      response.json().then(data => {
+        setUserInfo(data)
+        setRedirect(true)
+      })
     } else {
       alert('login failed')
     }

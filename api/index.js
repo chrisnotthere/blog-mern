@@ -5,6 +5,7 @@ const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const app = express();
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 const salt = bcrypt.genSaltSync(10);
 const secret = 'mysecretsshhh';
@@ -14,6 +15,7 @@ app.use(cors({
   origin:'http://localhost:3000'
 })); // cors middleware
 app.use(express.json()); // json body parser
+app.use(cookieParser());
 
 mongoose.connect('mongodb+srv://admin:sXQYmaPkQET5O2PS@blog-mern.hnveb6l.mongodb.net/?retryWrites=true&w=majority')
 
@@ -41,7 +43,10 @@ app.post('/login', async (req, res) => {
         if (err) {
           res.status(400).json({ err })
         } else {
-          res.cookie('token', token).json('ok');
+          res.cookie('token', token).json({
+            id: userDoc._id,
+            username
+          });
         }
       })
 
@@ -54,6 +59,23 @@ app.post('/login', async (req, res) => {
   } catch (err) {
     res.status(400).json({ err })
   }
+})
+
+app.get('/profile', async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    res.status(400).send('Token not provided');
+    return;
+  }
+  jwt.verify(token, secret, {}, (err, payload) => {
+    if (err) throw err;
+    res.json(payload)
+  })
+})
+
+
+app.post('/logout', (req, res) => {
+  res.cookie('token', '',).json('ok')
 })
 
 app.listen(4000)
