@@ -1,14 +1,14 @@
-function LoginPage() {
+function RegisterPage() {
   return (
-    <form action='' className="login">
-      <h1>Login</h1>
+    <form action='' className="register">
+      <h1>Register</h1>
       <input type="text"
              placeholder="username"/>
       <input type="password"
              placeholder="password"/>
-      <button>Login</button>
+      <button>Register</button>
     </form>
   )
 }
 
-export default LoginPage
+export default RegisterPage
