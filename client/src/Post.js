@@ -1,17 +1,25 @@
-export default function Post() {
+import { formatISO9075 } from "date-fns";
+import { Link } from "react-router-dom";
+
+export default function Post({_id, title, summary, cover, content, createdAt, author}) {
+
   return (
-    <div className='post'>
-    <div className="image">
-      <img src='https://images.newscientist.com/wp-content/uploads/2023/07/18224338/SEI_164576893.jpg?width=900' alt='' />
+    <div className="post">
+      <div className="image">
+        <Link to={`/post/${_id}`}>
+          <img src={'http://localhost:4000/'+cover} alt={title}/>
+        </Link>
+      </div>
+      <div className="texts">
+        <Link to={`/post/${_id}`}>
+        <h2>{title}</h2>
+        </Link>
+        <p className="info">
+          <a className="author">{author.username}</a>
+          <time>{formatISO9075(new Date(createdAt))}</time>
+        </p>
+        <p className="summary">{summary}</p>
+      </div>
     </div>
-    <div className='texts'>
-      <h2>Two-faced star seems to have one hydrogen side and one helium side</h2>
-      <p className="info">
-        <a href="/" className="author">Chris N</a>
-        <time>2023-07-19 08:35</time>
-      </p>
-      <p className='summary'>Astronomers have found a two-faced star where each side has a different composition. This white dwarf star, nicknamed Janus after the Roman god of doorways and transitions, is the first of its kind ever spotted.</p>
-    </div>
-  </div>
-  )
+  );
 }
